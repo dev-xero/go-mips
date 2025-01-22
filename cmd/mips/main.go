@@ -5,5 +5,7 @@ import (
 )
 
 func main() {
+	
+
 	fmt.Println("MIPS interpreter finished execution.")
 }
