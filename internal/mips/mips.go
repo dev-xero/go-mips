@@ -24,7 +24,7 @@ type CPU struct {
 	HI, LO    Register     // 32 bit larger and smaller part of multiplication
 }
 
-// MIP instruction abstraction
+// MIP instruction abstraction.
 //
 // Due to language constraints, certain fields have been
 // expanded to 8-bits from their original 6 or 5-bits in the MIPS spec.
@@ -40,10 +40,10 @@ type Instruction struct {
 	Address   uint32
 }
 
-// Instantiates a new CPU
+// Instantiates a new CPU.
 func NewCPU() *CPU {
 	return &CPU{
-		Memory: make([]byte, 1024 * 1024), // 1MB
+		Memory: make([]byte, 1024*1024), // 1MB
 	}
 }
 
@@ -74,8 +74,24 @@ func (cpu *CPU) Decode(line string) Instruction {
 
 // Parses and returns register values.
 func parseRegister(s string) uint8 {
-	s = strings.Trim(s, "$s,")
-	reg, _ := strconv.Atoi(s)
+	s = strings.Trim(s, "$,")
 
-	return uint8(reg)
+	switch {
+	case s == "zero":
+		// Special register $zero always contains 0
+		return 0
+	case strings.HasPrefix(s, "t"):
+		// Register t0-t9 starts at 8
+		reg, _ := strconv.Atoi(strings.TrimPrefix(s, "t"))
+		return uint8(8 + reg)
+
+	case strings.HasPrefix(s, "s"):
+		// Register s0-s7 starts at 16
+		reg, _ := strconv.Atoi(strings.TrimPrefix(s, "s"))
+		return uint8(16 + reg)
+	default:
+		// General purpose registers
+		reg, _ := strconv.Atoi(s)
+		return uint8(reg)
+	}
 }
