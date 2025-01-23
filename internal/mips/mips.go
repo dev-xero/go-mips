@@ -12,6 +12,12 @@ type Register uint32
 
 type InstructionType int
 
+// OP -> FUNC code map
+var opCodeMap = map[string]uint8{
+	"add": 0x20,
+	"sub": 0x22,
+}
+
 // MIPS instruction types can be classified into 3.
 const (
 	R_TYPE InstructionType = iota // Register type
@@ -52,11 +58,6 @@ func NewCPU() *CPU {
 
 // Reads MIPS assembly line and parses it.
 func (cpu *CPU) Decode(line string) (Instruction, error) {
-	opCodeMap := map[string]uint8{
-		"add": 0x20,
-		"sub": 0x22,
-	}
-
 	parts := strings.Fields(line)
 
 	if len(parts) == 0 {
