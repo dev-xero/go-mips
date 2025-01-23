@@ -1,11 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GO MIPS Simulator</title>
-</head>
-<body>
-    <h3>Welcome to the GO MIPS simulator.</h3>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="MIPS Assembly Web simulator." />
+        <title>GO MIPS Simulator</title>
+        <link rel="stylesheet" href="/static/stylesheet.css" />
+    </head>
+    <body>
+        <h3 id="title">GO MIPS Simulator</h3>
+        <p id="paragraph">
+            GoMIPS is a CLI and web based MIPS assembly simulator written in GO and capable of
+            decoding and executing most of the basic instruction set. Hobby
+            project built as an escape from learning MARS sim.
+        </p>
+
+        <!-- Flex section -->
+        <section id="flex-section">
+            <!-- Editing Box -->
+            <section id="code">
+                <span>Editor</span>
+                <textarea id="code-box"> </textarea>
+            </section>
+
+            <!-- Everything else -->
+            <section id="info">
+                <!-- Operations -->
+                <section class="operations">
+                    <h3>Operations</h3>
+                    <h3 class="val">00</h3>
+                </section>
+                <!-- Registers -->
+                <section id="registers">
+                    <h3 class="header">Registers</h3>
+                    <ul class="reg-table">
+                        <!-- s0 - s7 -->
+                        <li class="sreg">
+                            <div class="reg-block">
+                                <h3 class="label">s0</h3>
+                                <h3>0</h3>
+                            </div>
+                        </li>
+                        <li class="sreg">
+                            <div class="reg-block">
+                                <h3 class="label">s1</h3>
+                                <h3>0</h3>
+                            </div>
+                        </li>
+                        <li class="sreg">
+                            <div class="reg-block">
+                                <h3 class="label">s3</h3>
+                                <h3>0</h3>
+                            </div>
+                        </li>
+                        <li class="sreg">
+                            <div class="reg-block">
+                                <h3 class="label">s4</h3>
+                                <h3>0</h3>
+                            </div>
+                        </li>
+                        <li class="sreg">
+                            <div class="reg-block">
+                                <h3 class="label"3>s5</h3>
+                                <h3>0</h3>
+                            </div>
+                        </li>
+                        <li class="sreg">
+                            <div class="reg-block">
+                                <h3 class="label">s6</h3>
+                                <h3>0</h3>
+                            </div>
+                        </li>
+                        <li class="sreg">
+                            <div class="reg-block">
+                                <h3 class="label">s7</h3>
+                                <h3>0</h3>
+                            </div>
+                        </li>
+                        <!-- t0 - t9 -->
+                        <li class="treg">
+                            <div class="reg-block">
+                                <h3 class="label">t0</h3>
+                                <h3>0</h>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+        </section>
+    </body>
 </html>

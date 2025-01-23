@@ -50,67 +50,6 @@ type Instruction struct {
 	Address   uint32
 }
 
-// Instantiates a new CPU.
-func NewCPU() *CPU {
-	return &CPU{
-		Memory: make([]byte, 1024*1024), // 1MB
-	}
-}
-
-// Reads MIPS assembly line and parses it.
-func (cpu *CPU) Decode(line string) (Instruction, error) {
-	parts := strings.Fields(line)
-
-	if len(parts) == 0 {
-		return Instruction{}, checks.ErrInvalidInstruction
-	}
-
-	op := parts[0]
-
-	switch op {
-	case "add", "sub":
-		if err := checks.ValidateInstructionParts(op, len(parts), 4); err != nil {
-			return Instruction{}, err
-		}
-
-		regs, err := parseRegisters(parts[1:])
-		if err != nil {
-			return Instruction{}, fmt.Errorf("register parsing failed: %w", err)
-		}
-
-		return Instruction{
-			Type:   R_TYPE,
-			Opcode: 0,
-			Rd:     regs[0],
-			Rs:     regs[1],
-			Rt:     regs[2],
-			Funct:  opCodeMap[op],
-		}, nil
-	case "addi":
-		if err := checks.ValidateInstructionParts(op, len(parts), 4); err != nil {
-			return Instruction{}, err
-		}
-
-		regs, err := parseRegistersImmediate(parts[1:])
-		if err != nil {
-			return Instruction{}, fmt.Errorf("%s: %w", checks.ErrRegisterParsingFailed.Error(), err)
-		}
-
-		fmt.Println("regs i:", regs)
-
-		return Instruction{
-			Type:   R_TYPE,
-			Opcode: 0,
-			Rd:     regs[0],
-			Rs:     regs[1],
-			Rt:     regs[2],
-			Funct:  opCodeMap[op],
-		}, nil
-	}
-
-	return Instruction{}, fmt.Errorf("unsupported instruction: %s", op)
-}
-
 // General purpose register parsing
 func parseRegisters(regs []string) ([]uint8, error) {
 	result := make([]uint8, len(regs))
@@ -190,4 +129,65 @@ func parseRegister(s string) (uint8, error) {
 	default:
 		return 0, checks.ErrInvalidRegister
 	}
+}
+
+// Instantiates a new CPU.
+func NewCPU() *CPU {
+	return &CPU{
+		Memory: make([]byte, 1024*1024), // 1MB
+	}
+}
+
+// Reads MIPS assembly line and parses it.
+func (cpu *CPU) Decode(line string) (Instruction, error) {
+	parts := strings.Fields(line)
+
+	if len(parts) == 0 {
+		return Instruction{}, checks.ErrInvalidInstruction
+	}
+
+	op := parts[0]
+
+	switch op {
+	case "add", "sub":
+		if err := checks.ValidateInstructionParts(op, len(parts), 4); err != nil {
+			return Instruction{}, err
+		}
+
+		regs, err := parseRegisters(parts[1:])
+		if err != nil {
+			return Instruction{}, fmt.Errorf("register parsing failed: %w", err)
+		}
+
+		return Instruction{
+			Type:   R_TYPE,
+			Opcode: 0,
+			Rd:     regs[0],
+			Rs:     regs[1],
+			Rt:     regs[2],
+			Funct:  opCodeMap[op],
+		}, nil
+	case "addi":
+		if err := checks.ValidateInstructionParts(op, len(parts), 4); err != nil {
+			return Instruction{}, err
+		}
+
+		regs, err := parseRegistersImmediate(parts[1:])
+		if err != nil {
+			return Instruction{}, fmt.Errorf("%s: %w", checks.ErrRegisterParsingFailed.Error(), err)
+		}
+
+		fmt.Println("regs i:", regs)
+
+		return Instruction{
+			Type:   R_TYPE,
+			Opcode: 0,
+			Rd:     regs[0],
+			Rs:     regs[1],
+			Rt:     regs[2],
+			Funct:  opCodeMap[op],
+		}, nil
+	}
+
+	return Instruction{}, fmt.Errorf("unsupported instruction: %s", op)
 }

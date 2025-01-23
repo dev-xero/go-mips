@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+*::selection {
+    background-color: #48b6c9;
+    color: #ffffff;
+}
+
+body {
+    font-size: 16px;
+    font-family: 'JetBrains Mono', sans-serif;
+    background-color: #08090b;
+    color: #ccdde0;
+    max-width: 860px;
+    padding: 8px;
+    margin: 0 auto;
+}
+
+#title {
+    text-align: center;
+    margin: 24px 8px;
+    color: #48b6c9;
+}
+
+#paragraph {
+    text-align: justify;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 32px;
+    color: #a1a8ad;
+    font-size: 14px;
+    max-width: 680px;
+}
+
+#flex-section {
+    display: flex;
+    gap: 24px;
+}
+
+#code {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 70%;
+}
+
+#code span {
+    /* margin-top: 24px; */
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #898f94;
+}
+
+#code-box {
+    flex-grow: 1;
+    outline: none;
+    border: none;
+    background-color: #121417;
+    color: #a1a8ad;
+    padding: 8px;
+    max-width: 640px;
+    height: 400px;;
+    resize: none;
+}
+
+#info {
+    flex-grow: 1;
+    width: 30%;
+    margin-top:28px;
+}
+
+#info .operations {
+    display: flex;
+    background: #34708a;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+#info .operations h3 {
+    text-align: center;
+    width: 80%;
+    padding: 4px;
+}
+
+
+#info .operations h3.val {
+    background: #2f586a;
+    padding: 4px;
+    width: 20%;
+    text-align: center;
+}
+
+#registers h3.header {
+    background: #121417;
+    text-align: center;
+    padding: 8px;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+#registers .reg-table li {
+    margin-top: 4px;
+}
+
+#registers .reg-table li .reg-block {
+    display: flex;
+}
+
+#registers .reg-table li .reg-block .label {
+    width: 20% !important;
+    text-align: center;
+    margin-left: 0px !important;
+}
+
+#registers .reg-table li .reg-block h3{
+    width: 80%;
+    background: #121417;
+    padding: 0px 8px;
+    margin-left: 4px;
+}
+
+#registers .reg-table li.sreg .reg-block .label {
+    color: #3e68b5;
+}
+
+#registers .reg-table li.treg .reg-block .label {
+    color: #de3450;
+}
