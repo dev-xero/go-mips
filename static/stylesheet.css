@@ -104,6 +104,43 @@ body {
     margin-bottom: 4px;
 }
 
+#registers #switchers {
+    display: flex;
+    margin: 8px 0px;
+    gap: 4px;
+}
+
+#registers #switchers button {
+    flex: 1;
+    border: 2px solid #121417;
+    background-color: transparent;;
+    outline: none;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0px 4px;
+}
+
+#registers #switchers button.active,
+#registers #switchers button:hover {
+    background-color: #121417;
+}
+
+#registers #switchers button.s {
+    color: #3e68b5;
+}
+
+#registers #switchers button.t {
+    color: #de3450;
+}
+
+#registers #switchers button.a {
+    color: #de9234;
+}
+
+#registers #switchers button.v {
+    color: #3ade34;
+}
+
 #registers .reg-table li {
     margin-top: 4px;
 }
@@ -125,10 +162,18 @@ body {
     margin-left: 4px;
 }
 
-#registers .reg-table li.sreg .reg-block .label {
+#registers .reg-table .s-block li .reg-block .label {
     color: #3e68b5;
 }
 
-#registers .reg-table li.treg .reg-block .label {
+#registers .reg-table .t-block li .reg-block .label {
     color: #de3450;
+}
+
+#registers .reg-table .a-block li .reg-block .label {
+    color: #de9234;
+}
+
+#registers .reg-table .v-block li .reg-block .label {
+    color: #3ade34;
 }

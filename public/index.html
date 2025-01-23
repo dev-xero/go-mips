@@ -10,9 +10,9 @@
     <body>
         <h3 id="title">GO MIPS Simulator</h3>
         <p id="paragraph">
-            GoMIPS is a CLI and web based MIPS assembly simulator written in GO and capable of
-            decoding and executing most of the basic instruction set. Hobby
-            project built as an escape from learning MARS sim.
+            GoMIPS is a CLI and web based MIPS assembly simulator written in GO
+            and capable of decoding and executing most of the basic instruction
+            set. Hobby project built as an escape from learning MARS sim.
         </p>
 
         <!-- Flex section -->
@@ -33,60 +33,207 @@
                 <!-- Registers -->
                 <section id="registers">
                     <h3 class="header">Registers</h3>
-                    <ul class="reg-table">
-                        <!-- s0 - s7 -->
-                        <li class="sreg">
-                            <div class="reg-block">
-                                <h3 class="label">s0</h3>
-                                <h3>0</h3>
-                            </div>
-                        </li>
-                        <li class="sreg">
-                            <div class="reg-block">
-                                <h3 class="label">s1</h3>
-                                <h3>0</h3>
-                            </div>
-                        </li>
-                        <li class="sreg">
-                            <div class="reg-block">
-                                <h3 class="label">s3</h3>
-                                <h3>0</h3>
-                            </div>
-                        </li>
-                        <li class="sreg">
-                            <div class="reg-block">
-                                <h3 class="label">s4</h3>
-                                <h3>0</h3>
-                            </div>
-                        </li>
-                        <li class="sreg">
-                            <div class="reg-block">
-                                <h3 class="label"3>s5</h3>
-                                <h3>0</h3>
-                            </div>
-                        </li>
-                        <li class="sreg">
-                            <div class="reg-block">
-                                <h3 class="label">s6</h3>
-                                <h3>0</h3>
-                            </div>
-                        </li>
-                        <li class="sreg">
-                            <div class="reg-block">
-                                <h3 class="label">s7</h3>
-                                <h3>0</h3>
-                            </div>
-                        </li>
-                        <!-- t0 - t9 -->
-                        <li class="treg">
-                            <div class="reg-block">
-                                <h3 class="label">t0</h3>
-                                <h3>0</h>
-                            </div>
-                        </li>
-                    </ul>
+
+                    <!-- Switchers -->
+                    <section id="switchers">
+                        <button class="s active">S</button>
+                        <button class="t">T</button>
+                        <button class="a">A</button>
+                        <button class="v">V</button>
+                    </section>
+
+                    <section class="reg-table">
+                        <!-- S-BLOCK -> s0 - s7 -->
+                        <ul class="s-block">
+                            <li id="s0">
+                                <div class="reg-block">
+                                    <h3 class="label">s0</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="s1">
+                                <div class="reg-block">
+                                    <h3 class="label">s1</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="s2">
+                                <div class="reg-block">
+                                    <h3 class="label">s2</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="s3">
+                                <div class="reg-block">
+                                    <h3 class="label">s3</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="s4">
+                                <div class="reg-block">
+                                    <h3 class="label">s4</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="s5">
+                                <div class="reg-block">
+                                    <h3 class="label">s5</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="s6">
+                                <div class="reg-block">
+                                    <h3 class="label">s6</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="s7">
+                                <div class="reg-block">
+                                    <h3 class="label">s7</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <!-- T-BLOCK -> t0 - t9 -->
+                        <ul class="t-block">
+                            <li id="t0">
+                                <div class="reg-block">
+                                    <h3 class="label">t0</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="t1">
+                                <div class="reg-block">
+                                    <h3 class="label">t1</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="t2">
+                                <div class="reg-block">
+                                    <h3 class="label">t2</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li class="treg" id="t3">
+                                <div class="reg-block">
+                                    <h3 class="label">t3</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="t4">
+                                <div class="reg-block">
+                                    <h3 class="label">t4</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="t5">
+                                <div class="reg-block">
+                                    <h3 class="label">t5</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="t6">
+                                <div class="reg-block">
+                                    <h3 class="label">t6</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="t7">
+                                <div class="reg-block">
+                                    <h3 class="label">t7</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="t8">
+                                <div class="reg-block">
+                                    <h3 class="label">t8</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="t9">
+                                <div class="reg-block">
+                                    <h3 class="label">t9</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <!-- A-BLOCK -> a0 - a3 -->
+                        <ul class="a-block">
+                            <li id="a0">
+                                <div class="reg-block">
+                                    <h3 class="label">a0</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="a1">
+                                <div class="reg-block">
+                                    <h3 class="label">a1</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="a2">
+                                <div class="reg-block">
+                                    <h3 class="label">a2</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="a3">
+                                <div class="reg-block">
+                                    <h3 class="label">a3</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <!-- V-BLOCK -> v0 - v1 -->
+                        <ul class="v-block">
+                            <li id="v0">
+                                <div class="reg-block">
+                                    <h3 class="label">v0</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                            <li id="v1">
+                                <div class="reg-block">
+                                    <h3 class="label">v1</h3>
+                                    <h3>0</h3>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
                 </section>
             </section>
         </section>
     </body>
+    <script>
+        document.querySelectorAll('.reg-table ul').forEach((ul) => {
+            ul.style.display = ul.classList.contains('s-block')
+                ? 'block'
+                : 'none';
+        });
+
+        document.querySelectorAll('#switchers button').forEach((button) => {
+            button.addEventListener('click', function () {
+                // Remove active state from all buttons
+                document
+                    .querySelectorAll('#switchers button')
+                    .forEach((btn) => btn.classList.remove('active'));
+
+                // Add active state to clicked button
+                this.classList.add('active');
+
+                // Get register type
+                const regType = this.classList[0] + '-block';
+
+                // Toggle visibility of registers
+                document.querySelectorAll('.reg-table ul').forEach((ul) => {
+                    ul.style.display = ul.classList.contains(regType)
+                        ? 'block'
+                        : 'none';
+                });
+            });
+        });
+    </script>
 </html>
