@@ -1,8 +1,11 @@
 package mips
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/dev-xero/go-mips/internal/checks"
 )
 
 type Register uint32
@@ -48,50 +51,93 @@ func NewCPU() *CPU {
 }
 
 // Reads MIPS assembly line and parses it.
-func (cpu *CPU) Decode(line string) Instruction {
+func (cpu *CPU) Decode(line string) (Instruction, error) {
+	opCodeMap := map[string]uint8{
+		"add": 0x20,
+		"sub": 0x22,
+	}
+
 	parts := strings.Fields(line)
 
 	if len(parts) == 0 {
-		return Instruction{}
+		return Instruction{}, checks.ErrInvalidInstruction
 	}
 
 	op := parts[0]
 
 	switch op {
-	case "add":
+	case "add", "sub":
+		if err := checks.ValidateInstructionParts(op, len(parts), 4); err != nil {
+			return Instruction{}, err
+		}
+
+		regs, err := parseRegisters(parts[1:])
+		if err != nil {
+			return Instruction{}, fmt.Errorf("register parsing failed: %w", err)
+		}
+
 		return Instruction{
 			Type:   R_TYPE,
 			Opcode: 0,
-			Rd:     parseRegister(parts[1]),
-			Rs:     parseRegister(parts[2]),
-			Rt:     parseRegister(parts[3]),
-			Funct:  0x22,
-		}
+			Rd:     regs[0],
+			Rs:     regs[1],
+			Rt:     regs[2],
+			Funct:  opCodeMap[op],
+		}, nil
 	}
 
-	return Instruction{}
+	return Instruction{}, fmt.Errorf("unsupported instruction: %s", op)
+}
+
+// General purpose register parsing
+func parseRegisters(regs []string) ([]uint8, error) {
+	result := make([]uint8, len(regs))
+
+	for i, reg := range regs {
+		parsed, err := parseRegister(reg)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse register %s : %w", reg, err)
+
+		}
+		result[i] = parsed
+	}
+
+	return result, nil
 }
 
 // Parses and returns register values.
-func parseRegister(s string) uint8 {
+func parseRegister(s string) (uint8, error) {
 	s = strings.Trim(s, "$,")
 
 	switch {
+	// Special register $zero always contains 0
 	case s == "zero":
-		// Special register $zero always contains 0
-		return 0
-	case strings.HasPrefix(s, "t"):
-		// Register t0-t9 starts at 8
-		reg, _ := strconv.Atoi(strings.TrimPrefix(s, "t"))
-		return uint8(8 + reg)
+		return 0, nil
 
+	// Register t0-t9 starts at 8
+	case strings.HasPrefix(s, "t"):
+		num, err := strconv.Atoi(strings.TrimPrefix(s, "t"))
+		if err != nil {
+			return 0, &checks.RegisterError{Register: s, Reason: "invalid t-register number"}
+		}
+		if num < 0 || num > 9 {
+			return 0, &checks.RegisterError{Register: s, Reason: "t-register must be 0-9"}
+		}
+		return uint8(8 + num), nil
+
+	// Register s0-s7 starts at 16
 	case strings.HasPrefix(s, "s"):
-		// Register s0-s7 starts at 16
-		reg, _ := strconv.Atoi(strings.TrimPrefix(s, "s"))
-		return uint8(16 + reg)
+		num, err := strconv.Atoi(strings.TrimPrefix(s, "s"))
+		if err != nil {
+			return 0, &checks.RegisterError{Register: s, Reason: "invalid s-register number"}
+		}
+		if num < 0 || num > 7 {
+			return 0, &checks.RegisterError{Register: s, Reason: "s-register must be 0-7"}
+		}
+		return uint8(16 + num), nil
+
+	// Unknown register
 	default:
-		// General purpose registers
-		reg, _ := strconv.Atoi(s)
-		return uint8(reg)
+		return 0, checks.ErrInvalidRegister
 	}
 }

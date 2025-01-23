@@ -23,10 +23,16 @@ func main() {
 			break
 		}
 
-		instruction := cpu.Decode(line)
+		instruction, err := cpu.Decode(line)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
 
+		// Debug
 		fmt.Println("instruction:", instruction)
 		fmt.Println("cpu registers:", cpu.Registers)
+		fmt.Println("")
 	}
 
 	fmt.Println("MIPS interpreter finished execution.")
