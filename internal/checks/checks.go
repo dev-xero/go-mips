@@ -3,9 +3,10 @@ package checks
 import "fmt"
 
 var (
-	ErrInvalidInstruction = fmt.Errorf("invalid instruction format")
-	ErrInvalidRegister    = fmt.Errorf("invalid register reference")
-	ErrOutOfRange         = fmt.Errorf("value out of allowed range")
+	ErrInvalidInstruction    = fmt.Errorf("invalid instruction format")
+	ErrInvalidRegister       = fmt.Errorf("invalid register reference")
+	ErrOutOfRange            = fmt.Errorf("value out of allowed range")
+	ErrRegisterParsingFailed = fmt.Errorf("register parsing failed")
 )
 
 type RegisterError struct {

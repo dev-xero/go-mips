@@ -14,8 +14,9 @@ type InstructionType int
 
 // OP -> FUNC code map
 var opCodeMap = map[string]uint8{
-	"add": 0x20,
-	"sub": 0x22,
+	"add":  0x20,
+	"sub":  0x22,
+	"addi": 0x8,
 }
 
 // MIPS instruction types can be classified into 3.
@@ -85,6 +86,26 @@ func (cpu *CPU) Decode(line string) (Instruction, error) {
 			Rt:     regs[2],
 			Funct:  opCodeMap[op],
 		}, nil
+	case "addi":
+		if err := checks.ValidateInstructionParts(op, len(parts), 4); err != nil {
+			return Instruction{}, err
+		}
+
+		regs, err := parseRegistersImmediate(parts[1:])
+		if err != nil {
+			return Instruction{}, fmt.Errorf("%s: %w", checks.ErrRegisterParsingFailed.Error(), err)
+		}
+
+		fmt.Println("regs i:", regs)
+
+		return Instruction{
+			Type:   R_TYPE,
+			Opcode: 0,
+			Rd:     regs[0],
+			Rs:     regs[1],
+			Rt:     regs[2],
+			Funct:  opCodeMap[op],
+		}, nil
 	}
 
 	return Instruction{}, fmt.Errorf("unsupported instruction: %s", op)
@@ -102,6 +123,34 @@ func parseRegisters(regs []string) ([]uint8, error) {
 		}
 		result[i] = parsed
 	}
+
+	return result, nil
+}
+
+// General purpose immediate-type parsing
+func parseRegistersImmediate(regs []string) ([]uint8, error) {
+	registerEndIndex := len(regs) - 2
+	result := make([]uint8, registerEndIndex+2)
+
+	// Parse register parts
+	for i, reg := range regs[:registerEndIndex+1] {
+		parsed, err := parseRegister(reg)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse register %s : %w", reg, err)
+		}
+		result[i] = parsed
+	}
+
+	// Read immediate parts
+	// We'll append this to the results at the end
+	finalPart := regs[registerEndIndex+1]
+	immediate, err := strconv.Atoi(finalPart)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse immediate value '%s' : %w", finalPart, err)
+	}
+
+	result[registerEndIndex+1] = uint8(immediate)
 
 	return result, nil
 }

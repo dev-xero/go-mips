@@ -10,7 +10,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# COmpile the server
+# Compile the server
 echo "> Compiling sever..."
 go build -o ./bin/server ./cmd/server/main.go
 
