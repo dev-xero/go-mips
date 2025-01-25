@@ -24,8 +24,15 @@
         <section id="flex-section">
             <!-- Editing Box -->
             <section id="code">
-                <span>Editor</span>
-                <textarea id="code-box"> </textarea>
+                <span class="header">Editor</span>
+
+                <div id="editing">
+                    <textarea id="editor" spellcheck="false"></textarea>
+
+                    <pre id="hl" aria-hidden="true">
+                        <code id="hl-content"></code>
+                    </pre>
+                </div>
             </section>
 
             <!-- Everything else -->
@@ -212,6 +219,7 @@
             </section>
         </section>
     </body>
+    <script src="/static/web.js"></script>
     <script>
         document.querySelectorAll('.reg-table ul').forEach((ul) => {
             ul.style.display = ul.classList.contains('s-block')
