@@ -27,7 +27,9 @@ class SyntaxHighlighter {
             )
             .replace(/\n/g, '<br>');
 
-        const lines = escapedCode.split('\n');
+        const lines = escapedCode.split('<br>');
+
+        console.log("lines:", lines);
 
         const highlightedLines = lines.map((line) => {
             if (/^\s*#/.test(line)) {
@@ -50,7 +52,7 @@ class SyntaxHighlighter {
                 );
         });
 
-        return highlightedLines.join('<br>');
+        return highlightedLines.join('<br />');
     }
 
     handleInput(e) {
