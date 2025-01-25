@@ -222,17 +222,51 @@ body {
 }
 
 #hl-content span.operator {
-    color: #4e88ff;
+    color: #87baf5;
 }
 
 #hl-content span.register {
-    color: #4caf50;
+    color: #6bdca5;
 }
 
 #hl-content span.immediate {
-    color: #ff9800;
+    color: #9ef17a;
 }
 
 #hl-content span.comment {
     color: #565c61;
+}
+
+#run-btn {
+    margin: 16px 0px;
+    border: 0px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 138px;
+    font-weight: bold;
+    background-color: #48b6c9;
+    cursor: pointer;
+}
+
+#run-btn:hover {
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 640px) {
+    #flex-section {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    #info {
+        width: 100% !important;
+    }
+
+    #run-btn,
+    #code {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
 }
