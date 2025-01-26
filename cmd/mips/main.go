@@ -33,6 +33,11 @@ func main() {
 		}
 
 		// Execute this instruction
+		err = cpu.Execute(instruction)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
 
 		// Debug
 		fmt.Println("instruction:", instruction)

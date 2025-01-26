@@ -7,6 +7,7 @@ var (
 	ErrInvalidRegister       = fmt.Errorf("invalid register reference")
 	ErrOutOfRange            = fmt.Errorf("value out of allowed range")
 	ErrRegisterParsingFailed = fmt.Errorf("register parsing failed")
+	ErrUnsupportedRegister   = fmt.Errorf("unsupported register")
 )
 
 type RegisterError struct {

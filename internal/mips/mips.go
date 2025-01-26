@@ -149,6 +149,7 @@ func (cpu *CPU) Decode(line string) (Instruction, error) {
 
 	switch op {
 	case "add", "sub":
+		// FORMAT: add rd, rs, rt
 		if err := checks.ValidateInstructionParts(op, len(parts), 4); err != nil {
 			return Instruction{}, err
 		}
@@ -167,6 +168,7 @@ func (cpu *CPU) Decode(line string) (Instruction, error) {
 			Funct:  opCodeMap[op],
 		}, nil
 	case "addi":
+		// FORMAT: addi rt, rs, #immediate
 		if err := checks.ValidateInstructionParts(op, len(parts), 4); err != nil {
 			return Instruction{}, err
 		}
@@ -176,17 +178,56 @@ func (cpu *CPU) Decode(line string) (Instruction, error) {
 			return Instruction{}, fmt.Errorf("%s: %w", checks.ErrRegisterParsingFailed.Error(), err)
 		}
 
-		fmt.Println("regs i:", regs)
+		// fmt.Println("regs i:", regs)
 
 		return Instruction{
-			Type:   R_TYPE,
-			Opcode: 0,
-			Rd:     regs[0],
-			Rs:     regs[1],
-			Rt:     regs[2],
-			Funct:  opCodeMap[op],
+			Type:      I_TYPE,
+			Opcode:    0,
+			Rs:        regs[1],
+			Rt:        regs[0],
+			Funct:     opCodeMap[op],
+			Immediate: uint16(regs[2]),
 		}, nil
 	}
 
 	return Instruction{}, fmt.Errorf("unsupported instruction: %s", op)
+}
+
+// Execute MIPS instructions
+func (cpu *CPU) Execute(inst Instruction) error {
+	switch inst.Type {
+
+	case R_TYPE:
+		cpu.ExecuteRType(inst)
+
+	case I_TYPE:
+		cpu.ExecuteIType(inst)
+	}
+
+	return nil
+}
+
+// Executes Register type instructions only
+func (cpu *CPU) ExecuteRType(inst Instruction) error {
+	switch inst.Funct {
+
+	case opCodeMap["add"]:
+		cpu.Registers[inst.Rd] += cpu.Registers[inst.Rs] + cpu.Registers[inst.Rd]
+
+	}
+
+	return nil
+}
+
+// Executes Immediate type instructions only
+func (cpu *CPU) ExecuteIType(inst Instruction) error {
+	switch inst.Funct {
+
+	case opCodeMap["addi"]:
+		fmt.Printf("rt: %d, rs: %d, i: %d\n", inst.Rt, inst.Rs, inst.Immediate)
+		cpu.Registers[inst.Rt] += cpu.Registers[inst.Rs] + Register(inst.Immediate)
+
+	}
+
+	return nil
 }
