@@ -5,10 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="MIPS Assembly Web simulator." />
         <title>GO MIPS Simulator</title>
-        <link rel="stylesheet" href="/static/stylesheet.css" />
+        <link rel="stylesheet" href="/static/css/stylesheet.css" />
         <link
             rel="shortcut icon"
-            href="/static/favicon.svg"
+            href="/static/img/favicon.svg"
             type="image/x-icon"
         />
     </head>
@@ -27,7 +27,11 @@
                 <span class="header">Editor</span>
 
                 <div id="editing">
-                    <textarea id="editor" spellcheck="false" autocomplete="off"></textarea>
+                    <textarea
+                        id="editor"
+                        spellcheck="false"
+                        autocomplete="off"
+                    ></textarea>
 
                     <pre id="hl" aria-hidden="true">
                         <code id="hl-content"></code>
@@ -221,7 +225,8 @@
             </section>
         </section>
     </body>
-    <script src="/static/web.js"></script>
+    <script src="/static/js/web.js"></script>
+    <script src="/static/js/wasm_exec.js"></script>
     <script>
         document.querySelectorAll('.reg-table ul').forEach((ul) => {
             ul.style.display = ul.classList.contains('s-block')
@@ -249,6 +254,37 @@
                         : 'none';
                 });
             });
+        });
+    </script>
+    <!-- WASM -->
+    <script>
+        async function init() {
+            const go = new Go();
+            const result = await WebAssembly.instantiateStreaming(
+                fetch('/static/wasm/main.wasm'),
+                go.importObject
+            );
+            go.run(result.instance);
+        }
+
+        init().then(() => {
+            const program = [
+                'add $t0, $t1, $t2',
+                'add $t0, $t2, $t3',
+                'add $t0, $t4, $t5',
+            ];
+
+            // Load the program into the simulator
+            const success = loadProgram(program);
+
+            if (success) {
+                console.log("Successfully loaded program.")
+                // Inspect the simulator state
+                const state = inspectSimulator();
+                console.log('Simulator State:', state);
+            } else {
+                console.error('Failed to load program');
+            }
         });
     </script>
 </html>
