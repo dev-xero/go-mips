@@ -1,0 +1,1 @@
+GOOS=js GOARCH=wasm go build -o ./static/simulator.wasm ./cmd/wasm/wasm.go

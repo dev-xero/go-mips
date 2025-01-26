@@ -12,7 +12,7 @@ fi
 
 # Compile the server
 echo "> Compiling sever..."
-go build -o ./bin/server ./cmd/server/main.go
+go build -o ./bin/server ./cmd/server/server.go
 
 # Check if the build was successful
 if [ $? -eq 0 ]; then
