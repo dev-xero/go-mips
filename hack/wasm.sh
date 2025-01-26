@@ -1,5 +1,5 @@
 #!/bin/bash
 
-go fmt ./..
-.
+go fmt ./...
+
 GOOS=js GOARCH=wasm go build -o ./static/wasm/main.wasm ./cmd/wasm/wasm.go
