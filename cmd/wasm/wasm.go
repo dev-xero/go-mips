@@ -39,8 +39,7 @@ func (sim *Simulator) LoadProgram(this js.Value, args []js.Value) interface{} {
 
 }
 
-// Inspects simulator state, exposing it to the client
-func (sim *Simulator) InspectState(this js.Value, args []js.Value) interface{} {
+func (sim *Simulator) RegistersToJsValues() map[string]interface{} {
 	registers := make(map[string]interface{})
 
 	for i, _ := range sim.cpu.Registers {
@@ -49,6 +48,9 @@ func (sim *Simulator) InspectState(this js.Value, args []js.Value) interface{} {
 		if i == 0 {
 			// r0 is always 0
 			tag = "zero"
+		} else if i == 1 {
+			// reserved for assembler
+			tag = "at"
 
 		} else if i == 2 || i == 3 {
 			// result value registers
@@ -95,11 +97,17 @@ func (sim *Simulator) InspectState(this js.Value, args []js.Value) interface{} {
 			tag = "ra"
 		}
 
-		registers[fmt.Sprintf("$%s", tag)] = 0
+		registers[fmt.Sprintf("$%s", tag)] = uint32(sim.cpu.Registers[i])
 	}
 
+	return registers
+}
+
+// Inspects simulator state, exposing it to the client
+func (sim *Simulator) InspectState(this js.Value, args []js.Value) interface{} {
+
 	return js.ValueOf(map[string]interface{}{
-		"registers": registers,
+		"registers": sim.RegistersToJsValues(),
 		// "program":      sim.program,
 		// "current step": sim.cpu.PC,
 	})
