@@ -1,3 +1,10 @@
+import { initWASMSimulator, MIPSSimulatorUI } from "./mips.js"
+
+const webEditorElement = document.getElementById('editor');
+const runButton = document.getElementById('run-btn');
+
+let simulator;
+
 class SyntaxHighlighter {
     constructor(editorElement, options = {}) {
         this.editor = editorElement;
@@ -66,7 +73,42 @@ class SyntaxHighlighter {
     }
 }
 
-const webEditorElement = document.getElementById('editor');
-const highlighter = new SyntaxHighlighter(webEditorElement, {
+new SyntaxHighlighter(webEditorElement, {
     language: 'mips',
+});
+
+runButton.addEventListener('click', () => {
+    const assemblyCode = webEditorElement.value.split('\n');
+    const filteredAssembly = assemblyCode.filter((line) => !line.startsWith('#'))
+    
+    simulator.loadProgram(filteredAssembly)
+    for (let i = 0; i < filteredAssembly.length; i++) {
+        simulator.step();
+    }
+    // console.log("sim:", simulator.instructions)
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await initWASMSimulator();
+    simulator = new MIPSSimulatorUI();
+
+    // TESTING
+    // const program = [
+    //     'add $t0, $t1, $t2',
+    //     'add $t0, $t2, $t3',
+    //     'add $t0, $t4, $t7',
+    // ];
+
+    // Load the program into the simulator
+    let success = simulator.loadProgram([]);
+
+    if (success) {
+        console.log('Successfully loaded program.');
+        // Inspect the simulator state
+
+        const state = inspectSimulator();
+        console.log('Simulator State:', state);
+    } else {
+        console.error('Failed to load program');
+    }
 });

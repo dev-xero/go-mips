@@ -122,6 +122,40 @@ func (sim *Simulator) InspectState(this js.Value, args []js.Value) interface{} {
 	jsObj := js.Global().Get("JSON").Call("parse", string(jsonData))
 
 	return jsObj
+
+}
+
+// Steps (executes) assembly line
+func (sim *Simulator) Step(this js.Value, args []js.Value) interface{} {
+
+	if sim.cpu.PC >= uint32(len(sim.program)) {
+		return js.ValueOf(false)
+	}
+
+	currentInst := sim.program[sim.cpu.PC]
+
+	err := sim.cpu.Execute(currentInst)
+	if err != nil {
+		return js.ValueOf(false)
+	}
+
+	sim.cpu.PC += 1
+	state := map[string]interface{}{
+		"registers":   sim.RegistersToJsValues(),
+		"program":     sim.program,
+		"currentStep": sim.cpu.PC,
+	}
+
+	jsonData, err := json.Marshal(state)
+	if err != nil {
+		return js.Null()
+	}
+
+	// Parse JSON in JS context
+	jsObj := js.Global().Get("JSON").Call("parse", string(jsonData))
+
+	return jsObj
+
 }
 
 func main() {
@@ -131,6 +165,7 @@ func main() {
 
 	js.Global().Set("loadProgram", js.FuncOf(simulator.LoadProgram))
 	js.Global().Set("inspectSimulator", js.FuncOf(simulator.InspectState))
+	js.Global().Set("simulatorStep", js.FuncOf(simulator.Step))
 
 	select {}
 }

@@ -1,6 +1,4 @@
-let simulator = null;
-
-async function initWASMSimulator() {
+export async function initWASMSimulator() {
     const go = new Go();
     const result = await WebAssembly.instantiateStreaming(
         fetch('/static/wasm/main.wasm'),
@@ -9,7 +7,7 @@ async function initWASMSimulator() {
     go.run(result.instance);
 }
 
-class MIPSSimulatorUI {
+export class MIPSSimulatorUI {
     constructor() {
         this.instructions = [];
         this.currentStep = 0;
@@ -19,29 +17,37 @@ class MIPSSimulatorUI {
         this.instructions = instructions;
         return loadProgram(this.instructions);
     }
-}
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await initWASMSimulator();
-    const simulator = new MIPSSimulatorUI();
-
-    // TESTING
-    // const program = [
-    //     'add $t0, $t1, $t2',
-    //     'add $t0, $t2, $t3',
-    //     'add $t0, $t4, $t7',
-    // ];
-
-    // Load the program into the simulator
-    success = simulator.loadProgram([]);
-
-    if (success) {
-        console.log('Successfully loaded program.');
-        // Inspect the simulator state
-
-        const state = inspectSimulator();
-        console.log('Simulator State:', state);
-    } else {
-        console.error('Failed to load program');
+    step() {
+        const result = simulatorStep();
+        // If result is not a boolean, update the UI
+        this.updateUI(result);
     }
-});
+
+    updateUI(stepResult) {
+        // Update registers
+        Object.keys(stepResult.registers).forEach((reg) => {
+            const targetReg = document.getElementById(reg.substring(1))
+            if (targetReg) {
+                const h3Tag = targetReg.querySelector('h3.value');
+    
+                if (h3Tag) {
+                    h3Tag.innerText = stepResult.registers[reg]
+                }
+            }
+        });
+
+        // Update operations
+        document.getElementById("op-count").innerText = stepResult.currentStep
+
+        // Highlight current instruction
+        // this.highlightInstruction(stepResult.step);
+    }
+
+    highlightInstruction(stepIndex) {
+        const instructions = document.querySelectorAll('.instruction');
+        instructions.forEach((el, index) => {
+            el.classList.toggle('current', index === stepIndex);
+        });
+    }
+}
