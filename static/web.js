@@ -29,8 +29,6 @@ class SyntaxHighlighter {
 
         const lines = escapedCode.split('<br>');
 
-        console.log("lines:", lines);
-
         const highlightedLines = lines.map((line) => {
             if (/^\s*#/.test(line)) {
                 return `<span class="${this.options.themes.comment}">${line}</span>`;
