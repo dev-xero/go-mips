@@ -256,35 +256,5 @@
             });
         });
     </script>
-    <!-- WASM -->
-    <script>
-        async function init() {
-            const go = new Go();
-            const result = await WebAssembly.instantiateStreaming(
-                fetch('/static/wasm/main.wasm'),
-                go.importObject
-            );
-            go.run(result.instance);
-        }
-
-        init().then(() => {
-            const program = [
-                'add $t0, $t1, $t2',
-                'add $t0, $t2, $t3',
-                'add $t0, $t4, $t5',
-            ];
-
-            // Load the program into the simulator
-            const success = loadProgram(program);
-
-            if (success) {
-                console.log("Successfully loaded program.")
-                // Inspect the simulator state
-                const state = inspectSimulator();
-                console.log('Simulator State:', state);
-            } else {
-                console.error('Failed to load program');
-            }
-        });
-    </script>
+    <script src="/static/js/mips.js"></script>
 </html>
