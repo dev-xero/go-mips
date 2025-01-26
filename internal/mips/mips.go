@@ -50,6 +50,10 @@ type Instruction struct {
 	Address   uint32
 }
 
+// func (inst *Instruction) String() string {
+// 	return fmt.Sprintf()
+// }
+
 // General purpose register parsing
 func parseRegisters(regs []string) ([]uint8, error) {
 	result := make([]uint8, len(regs))

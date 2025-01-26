@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"syscall/js"
 
@@ -106,11 +107,21 @@ func (sim *Simulator) RegistersToJsValues() map[string]interface{} {
 // Inspects simulator state, exposing it to the client
 func (sim *Simulator) InspectState(this js.Value, args []js.Value) interface{} {
 
-	return js.ValueOf(map[string]interface{}{
-		"registers": sim.RegistersToJsValues(),
-		// "program":      sim.program,
-		// "current step": sim.cpu.PC,
-	})
+	state := map[string]interface{}{
+		"registers":   sim.RegistersToJsValues(),
+		"program":     sim.program,
+		"currentStep": sim.cpu.PC,
+	}
+
+	jsonData, err := json.Marshal(state)
+	if err != nil {
+		return js.Null()
+	}
+
+	// Parse JSON in JS context
+	jsObj := js.Global().Get("JSON").Call("parse", string(jsonData))
+
+	return jsObj
 }
 
 func main() {
