@@ -18,6 +18,10 @@ export class MIPSSimulatorUI {
         return loadProgram(this.instructions);
     }
 
+    resetState() {
+        return resetState();
+    }
+
     step() {
         const result = simulatorStep();
         // If result is not a boolean, update the UI
@@ -49,5 +53,9 @@ export class MIPSSimulatorUI {
         instructions.forEach((el, index) => {
             el.classList.toggle('current', index === stepIndex);
         });
+    }
+
+    inspectState() {
+        return inspectSimulator()
     }
 }

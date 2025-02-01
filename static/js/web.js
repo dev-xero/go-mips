@@ -96,13 +96,16 @@ new SyntaxHighlighter(webEditorElement, {
 runButton.addEventListener('click', () => {
     const assemblyCode = webEditorElement.value.split('\n');
     const filteredAssembly = assemblyCode.filter(
-        (line) => !line.startsWith('#')
+        (line) => !line.startsWith('#') && line.trim().length != 0
     );
 
+    simulator.resetState();
     simulator.loadProgram(filteredAssembly);
+
     for (let i = 0; i < filteredAssembly.length; i++) {
         simulator.step();
     }
+
     // console.log("sim:", simulator.instructions)
 });
 

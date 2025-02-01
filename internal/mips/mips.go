@@ -8,7 +8,7 @@ import (
 	"github.com/dev-xero/go-mips/internal/checks"
 )
 
-type Register uint32
+type Register int32
 
 type InstructionType int
 
@@ -41,18 +41,18 @@ type CPU struct {
 type Instruction struct {
 	Type      InstructionType
 	Opcode    uint8
-	Rs        uint8
-	Rt        uint8
-	Rd        uint8
+	Rs        int16
+	Rt        int16
+	Rd        int16
 	Shamt     uint8
 	Funct     uint8
-	Immediate uint16
+	Immediate int16
 	Address   uint32
 }
 
 // General purpose register parsing
-func parseRegisters(regs []string) ([]uint8, error) {
-	result := make([]uint8, len(regs))
+func parseRegisters(regs []string) ([]int16, error) {
+	result := make([]int16, len(regs))
 
 	for i, reg := range regs {
 		parsed, err := parseRegister(reg)
@@ -66,9 +66,9 @@ func parseRegisters(regs []string) ([]uint8, error) {
 }
 
 // General purpose immediate-type parsing
-func parseRegistersImmediate(regs []string) ([]uint8, error) {
+func parseRegistersImmediate(regs []string) ([]int16, error) {
 	registerEndIndex := len(regs) - 2
-	result := make([]uint8, registerEndIndex+2)
+	result := make([]int16, registerEndIndex+2)
 
 	// Parse register parts
 	for i, reg := range regs[:registerEndIndex+1] {
@@ -88,13 +88,13 @@ func parseRegistersImmediate(regs []string) ([]uint8, error) {
 		return nil, fmt.Errorf("failed to parse immediate value '%s' : %w", finalPart, err)
 	}
 
-	result[registerEndIndex+1] = uint8(immediate)
+	result[registerEndIndex+1] = int16(immediate)
 
 	return result, nil
 }
 
 // Parses and returns register values.
-func parseRegister(s string) (uint8, error) {
+func parseRegister(s string) (int16, error) {
 	s = strings.Trim(s, "$,")
 
 	switch {
@@ -111,7 +111,7 @@ func parseRegister(s string) (uint8, error) {
 		if num < 0 || num > 9 {
 			return 0, &checks.RegisterError{Register: s, Reason: "t-register must be 0-9"}
 		}
-		return uint8(8 + num), nil
+		return int16(8 + num), nil
 
 	// Register s0-s7 starts at 16
 	case strings.HasPrefix(s, "s"):
@@ -122,7 +122,8 @@ func parseRegister(s string) (uint8, error) {
 		if num < 0 || num > 7 {
 			return 0, &checks.RegisterError{Register: s, Reason: "s-register must be 0-7"}
 		}
-		return uint8(16 + num), nil
+		// TODO: add t8 and t9 register support
+		return int16(16 + num), nil
 
 	// Unknown register
 	default:
@@ -178,15 +179,13 @@ func (cpu *CPU) Decode(line string) (Instruction, error) {
 			return Instruction{}, fmt.Errorf("%s: %w", checks.ErrRegisterParsingFailed.Error(), err)
 		}
 
-		// fmt.Println("regs i:", regs)
-
 		return Instruction{
 			Type:      I_TYPE,
 			Opcode:    0,
 			Rs:        regs[1],
 			Rt:        regs[0],
 			Funct:     opCodeMap[op],
-			Immediate: uint16(regs[2]),
+			Immediate: int16(regs[2]),
 		}, nil
 	}
 
@@ -212,7 +211,8 @@ func (cpu *CPU) ExecuteRType(inst Instruction) error {
 	switch inst.Funct {
 
 	case opCodeMap["add"]:
-		cpu.Registers[inst.Rd] += cpu.Registers[inst.Rs] + cpu.Registers[inst.Rd]
+		fmt.Printf("r type: vals at rs: %d, rt: %d\n", cpu.Registers[inst.Rs], cpu.Registers[inst.Rt])
+		cpu.Registers[inst.Rd] = cpu.Registers[inst.Rs] + cpu.Registers[inst.Rt]
 
 	}
 
@@ -225,7 +225,7 @@ func (cpu *CPU) ExecuteIType(inst Instruction) error {
 
 	case opCodeMap["addi"]:
 		fmt.Printf("rt: %d, rs: %d, i: %d\n", inst.Rt, inst.Rs, inst.Immediate)
-		cpu.Registers[inst.Rt] += cpu.Registers[inst.Rs] + Register(inst.Immediate)
+		cpu.Registers[inst.Rt] = cpu.Registers[inst.Rs] + Register(inst.Immediate)
 
 	}
 

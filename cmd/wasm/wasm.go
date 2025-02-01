@@ -13,6 +13,19 @@ type Simulator struct {
 	program []mips.Instruction
 }
 
+// Resets program state
+func (sim *Simulator) ResetState(this js.Value, args []js.Value) interface{} {
+	sim.cpu.Memory = make([]byte, 1024*1024)
+	sim.cpu.PC = 0
+
+	// Reset all register values
+	for i := range 32 {
+		sim.cpu.Registers[i] = 0
+	}
+
+	return js.ValueOf(true)
+}
+
 // Loads program with instructions from client
 func (sim *Simulator) LoadProgram(this js.Value, args []js.Value) interface{} {
 	if len(args) == 0 {
@@ -163,6 +176,7 @@ func main() {
 		cpu: *mips.NewCPU(),
 	}
 
+	js.Global().Set("resetState", js.FuncOf(simulator.ResetState))
 	js.Global().Set("loadProgram", js.FuncOf(simulator.LoadProgram))
 	js.Global().Set("inspectSimulator", js.FuncOf(simulator.InspectState))
 	js.Global().Set("simulatorStep", js.FuncOf(simulator.Step))
