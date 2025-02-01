@@ -1,4 +1,4 @@
-import { initWASMSimulator, MIPSSimulatorUI } from "./mips.js"
+import { initWASMSimulator, MIPSSimulatorUI } from './mips.js';
 
 const webEditorElement = document.getElementById('editor');
 const runButton = document.getElementById('run-btn');
@@ -63,13 +63,29 @@ class SyntaxHighlighter {
     handleInput(e) {
         const codeElement = document.getElementById('hl-content');
         codeElement.innerHTML = this.highlightCode(e.target.value);
+        this.updateLineNumbers()
     }
 
     // We need both elements to scroll together
     syncScroll() {
         const codeElement = document.getElementById('hl');
+        const lineNumbers = document.querySelector('.lns');
+
         codeElement.scrollTop = this.editor.scrollTop;
         codeElement.scrollLeft = this.editor.scrollLeft;
+        lineNumbers.scrollTop = this.editor.scrollTop;
+    }
+
+    updateLineNumbers() {
+        const editor = document.getElementById('editor');
+        const lineNumbers = document.querySelector('.lns');
+        
+        const lines = editor.value.split('\n').length;
+    
+        lineNumbers.innerHTML = Array(lines)
+            .fill(0)
+            .map((_, i) => `<span class="ln">${i + 1}</span>`)
+            .join('');
     }
 }
 
@@ -79,9 +95,11 @@ new SyntaxHighlighter(webEditorElement, {
 
 runButton.addEventListener('click', () => {
     const assemblyCode = webEditorElement.value.split('\n');
-    const filteredAssembly = assemblyCode.filter((line) => !line.startsWith('#'))
-    
-    simulator.loadProgram(filteredAssembly)
+    const filteredAssembly = assemblyCode.filter(
+        (line) => !line.startsWith('#')
+    );
+
+    simulator.loadProgram(filteredAssembly);
     for (let i = 0; i < filteredAssembly.length; i++) {
         simulator.step();
     }
