@@ -31,18 +31,21 @@ export class MIPSSimulatorUI {
     updateUI(stepResult) {
         // Update registers
         Object.keys(stepResult.registers).forEach((reg) => {
-            const targetReg = document.getElementById(reg.substring(1))
+            const targetReg = document.getElementById(reg.substring(1));
             if (targetReg) {
                 const h3Tag = targetReg.querySelector('h3.value');
-    
+
                 if (h3Tag) {
-                    h3Tag.innerText = stepResult.registers[reg]
+                    h3Tag.innerText = stepResult.registers[reg];
                 }
             }
         });
 
         // Update operations
-        document.getElementById("op-count").innerText = stepResult.currentStep
+        document.getElementById('op-count').innerText =
+            stepResult.currentStep < 10
+                ? `0${stepResult.currentStep}`
+                : `${stepResult.currentStep}`;
 
         // Highlight current instruction
         // this.highlightInstruction(stepResult.step);
@@ -56,6 +59,6 @@ export class MIPSSimulatorUI {
     }
 
     inspectState() {
-        return inspectSimulator()
+        return inspectSimulator();
     }
 }
