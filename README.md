@@ -79,6 +79,30 @@ Of course this is a very loose definition, but is sufficient for what we want to
 
 I should also mention that some data type sizes, for instance R-type instructions have been expanded to 8-bits (from the originally defined 6-bits) due to language constraints, but shouldn't pose much of an issue.
 
+The CPU instruction is represented via another struct which specifies several important properties such as the Instruction Type, Op Code, and Address.
+
+```go
+// ===============================================================
+// MIP instruction abstraction
+// ---------------------------------------------------------------
+// Go abstraction of a MIPS instruction
+// Note:
+// Due to language constraints, certain fields have been expanded
+// to 8-bits from their original 6 or 5-bits in the MIPS spec.
+// ===============================================================
+type Instruction struct {
+	Type      InstructionType
+	Opcode    uint8
+	Rs        int16
+	Rt        int16
+	Rd        int16
+	Shamt     uint8
+	Funct     uint8
+	Immediate int16
+	Address   uint32
+}
+```
+
 ## Running Locally
 
 -   [Via the Command Line](#via-the-command-line)
