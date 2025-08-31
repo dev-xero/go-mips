@@ -12,6 +12,7 @@ Basic CPU simulator for the MIPS assembly language. Built for MARS defectors and
     -   [File Structure](#file-structure)
     -   [Libraries](#libraries)
     -   [How It Works](#how-it-works)
+        -   [How It Works: In a little more depth](#how-it-works-in-a-little-more-depth)
     -   [Running Locally](#running-locally)
         -   [Via the Command Line](#via-the-command-line)
         -   [Via the Browser](#via-the-browser)
@@ -60,6 +61,23 @@ The software can be run in two modes:
 The command line interface is the most straightforward way to get started. You simply compile the source files from the shell script and type in MIPs mnemonics.
 
 The browser, which is more interesting, relies on WebAssembly to get the same functionality running.
+
+### How It Works: In a little more depth
+
+The core of everything is the CPU abstraction, which is a struct:
+
+```go
+type CPU struct {
+	Registers [32]Register
+	PC        uint32
+	Memory    []byte
+	HI, LO    Register
+}
+```
+
+Of course this is a very loose definition, but is sufficient for what we want to achieve. I have 32 32-bit registers, as stated in the official specs, a program counter, and simulated memory (1MB), and two special registers: `HI` and `LO` which store the upper and lower 32-bits from multiplication and division operations. Though unused for now.
+
+I should also mention that some data type sizes, for instance R-type instructions have been expanded to 8-bits (from the originally defined 6-bits) due to language constraints, but shouldn't pose much of an issue.
 
 ## Running Locally
 
