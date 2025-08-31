@@ -144,9 +144,9 @@ Or use the script `/hack/server.sh` for additional formatting, compilation and r
 The default port is `8080` accessible via localhost.
 
 |         Web Editor            |
-| ------------------------------|
+|       :---------------:       |
 ![editor](./github/editor.png)  |
-|         Beautiful innit? ;)   |
+| Beautiful innit? ;)   |
 
 ## MIPS Reference Sheet
 
