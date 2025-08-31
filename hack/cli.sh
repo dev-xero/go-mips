@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Format all Go files
 echo "> Formatting Go code..."
 go fmt ./...
 
-# Formatting should succeed
 if [ $? -ne 0 ]; then
     echo "[x] Formatting failed, terminating."
     exit 1
