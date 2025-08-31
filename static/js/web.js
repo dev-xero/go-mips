@@ -63,7 +63,7 @@ class SyntaxHighlighter {
     handleInput(e) {
         const codeElement = document.getElementById('hl-content');
         codeElement.innerHTML = this.highlightCode(e.target.value);
-        this.updateLineNumbers()
+        this.updateLineNumbers();
     }
 
     // We need both elements to scroll together
@@ -79,9 +79,9 @@ class SyntaxHighlighter {
     updateLineNumbers() {
         const editor = document.getElementById('editor');
         const lineNumbers = document.querySelector('.lns');
-        
+
         const lines = editor.value.split('\n').length;
-    
+
         lineNumbers.innerHTML = Array(lines)
             .fill(0)
             .map((_, i) => `<span class="ln">${i + 1}</span>`)
@@ -100,7 +100,8 @@ runButton.addEventListener('click', () => {
     );
 
     simulator.resetState();
-    simulator.loadProgram(filteredAssembly);
+    simulator.load(filteredAssembly);
+    console.log("Simulator state:", inspectSimulator());
 
     for (let i = 0; i < filteredAssembly.length; i++) {
         simulator.step();
@@ -121,12 +122,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ];
 
     // Load the program into the simulator
-    let success = simulator.loadProgram([]);
+    let success = simulator.load([]);
 
     if (success) {
         console.log('Successfully loaded program.');
         // Inspect the simulator state
-
         const state = inspectSimulator();
         console.log('Simulator State:', state);
     } else {

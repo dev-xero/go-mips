@@ -145,6 +145,7 @@ func (sim *Simulator) Step(this js.Value, args []js.Value) interface{} {
 		return js.ValueOf(false)
 	}
 
+	// fmt.Println("disabled PC check")
 	currentInst := sim.program[sim.cpu.PC]
 
 	err := sim.cpu.Execute(currentInst)

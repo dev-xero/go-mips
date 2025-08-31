@@ -13,7 +13,7 @@ export class MIPSSimulatorUI {
         this.currentStep = 0;
     }
 
-    loadProgram(instructions) {
+    load(instructions) {
         this.instructions = instructions;
         return loadProgram(this.instructions);
     }
@@ -25,7 +25,10 @@ export class MIPSSimulatorUI {
     step() {
         const result = simulatorStep();
         // If result is not a boolean, update the UI
-        this.updateUI(result);
+        // console.log('result:', result);
+        if (result) {
+            this.updateUI(result);
+        }
     }
 
     updateUI(stepResult) {

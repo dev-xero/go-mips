@@ -1,3 +1,8 @@
+// ===============================================================
+// GO-MIPS Instruction Set Editor and Simulator
+// @dev-xero on GitHub
+// 2025
+// ===============================================================
 package main
 
 import (
@@ -9,10 +14,11 @@ import (
 	"github.com/dev-xero/go-mips/internal/mips"
 )
 
+// ===============================================================
 // Simulator CLI
+// ===============================================================
 func main() {
 	cpu := mips.NewCPU()
-
 	fmt.Printf("MIPS interpreter started, use 'END' to exit.\n\n")
 
 	// Fetch-Decode-Execute Cycle
@@ -39,7 +45,7 @@ func main() {
 			continue
 		}
 
-		// Debug
+		// For Debugging
 		fmt.Println("instruction:", instruction)
 		fmt.Println("cpu registers:", cpu.Registers)
 		fmt.Println("")
