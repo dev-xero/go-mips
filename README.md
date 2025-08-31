@@ -1,25 +1,21 @@
-<image src="./static/img/favicon.svg" width="100px" align="left" />
-
-### `GoMIPS`
+# Go MIPS
 
 [![Go](https://img.shields.io/badge/Go-00ADD8?logo=Go&logoColor=white&style=for-the-badge)]("https://github.com/dev-xero/go-mips")
 [![License](https://img.shields.io/github/license/dev-xero/go-mips?style=for-the-badge&colorA=131820&colorB=FFFFFF&logo=github)]("https://github.com/dev-xero/go-mips")
-
-# Go MIPS
 
 Basic CPU simulator for the MIPS assembly language. Built for MARS defectors and those who prefer a modern user interface.
 
 ## Table Of Contents
 
-- [Go MIPS](#go-mips)
-  - [Table Of Contents](#table-of-contents)
-  - [File Structure](#file-structure)
-  - [Libraries](#libraries)
-  - [How It Works](#how-it-works)
-  - [Running Locally](#running-locally)
-    - [Via the Command Line](#via-the-command-line)
-    - [Via the Browser](#via-the-browser)
-  - [MIPS Reference Sheet](#mips-reference-sheet)
+-   [Go MIPS](#go-mips)
+    -   [Table Of Contents](#table-of-contents)
+    -   [File Structure](#file-structure)
+    -   [Libraries](#libraries)
+    -   [How It Works](#how-it-works)
+    -   [Running Locally](#running-locally)
+        -   [Via the Command Line](#via-the-command-line)
+        -   [Via the Browser](#via-the-browser)
+    -   [MIPS Reference Sheet](#mips-reference-sheet)
 
 ## File Structure
 
