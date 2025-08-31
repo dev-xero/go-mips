@@ -1,3 +1,8 @@
+// ===============================================================
+// GO-MIPS Instruction Set Editor and Simulator
+// @dev-xero on GitHub
+// 2025
+// ===============================================================
 package main
 
 import (
@@ -5,20 +10,28 @@ import (
 	"net/http"
 )
 
-// Writing this by hand like a caveman
+// ===============================================================
+// HTTP Server for the web editor
+// ===============================================================
 func startServer() {
-	fmt.Println("Server running at http://localhost:8000")
+	// Starts up a HTTP server to listen for requests at the specified
+	// port. It also serves static files required by the web editor.
+	port := 8080
+	fmt.Printf("Server running at http://localhost:%d\n", port)
 
 	fs := http.FileServer(http.Dir("static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "public/index.html")
 	})
 
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 }
 
+// ===============================================================
+// Entry point
+// ===============================================================
 func main() {
 	startServer()
 }
