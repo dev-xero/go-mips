@@ -1,4 +1,4 @@
-<image src="./static/img/favicon.svg" width="64px" align="left" />
+<image src="./static/img/favicon.svg" width="100px" align="left" />
 
 ### GoMIPS
 
