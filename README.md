@@ -7,16 +7,16 @@ Basic CPU simulator for the MIPS assembly language. Built for MARS defectors and
 
 ## Table Of Contents
 
--   [Go MIPS](#go-mips)
-    -   [Table Of Contents](#table-of-contents)
-    -   [Overview](#overview)
-    -   [Libraries](#libraries)
-    -   [How It Works](#how-it-works)
-        -   [How It Works: In a little more depth](#how-it-works-in-a-little-more-depth)
-    -   [Running Locally](#running-locally)
-        -   [Via the Command Line](#via-the-command-line)
-        -   [Via the Browser](#via-the-browser)
-    -   [MIPS Reference Sheet](#mips-reference-sheet)
+- [Go MIPS](#go-mips)
+  - [Table Of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Libraries](#libraries)
+  - [How It Works](#how-it-works)
+    - [How It Works: In a little more depth](#how-it-works-in-a-little-more-depth)
+  - [Running Locally](#running-locally)
+    - [Via the Command Line](#via-the-command-line)
+    - [Via the Browser](#via-the-browser)
+  - [MIPS Reference Sheet](#mips-reference-sheet)
 
 ## Overview
 
@@ -142,6 +142,11 @@ go build -o ./bin/server ./cmd/server/server.go
 Or use the script `/hack/server.sh` for additional formatting, compilation and running in one go (pun-intended).
 
 The default port is `8080` accessible via localhost.
+
+|         Web Editor            |
+| ------------------------------|
+![editor](./github/editor.png)  |
+| Beautiful innit? ;)           |
 
 ## MIPS Reference Sheet
 
