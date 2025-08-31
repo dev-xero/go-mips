@@ -28,6 +28,13 @@ Basic CPU simulator for the MIPS assembly language. Built for MARS defectors and
 
 ## Libraries
 
+I try to stay as lean as possible when it comes to external libraries, and perhaps it's no surprise that there isn't any in use except from the Official Go WebAssembly execution runtime support, and syscall/js library:
+
+-   [syscall/js](https://pkg.go.dev/syscall/js)
+-   [web assembly runtime support](https://go.googlesource.com/go.git/+/refs/tags/go1.17rc1/misc/wasm/wasm_exec.js)
+
+I purposely decided not to use React or any "heavy" frontend libraries because it would be overkill and frankly isn't the focus of this project.
+
 ## How It Works
 
 GoMIPs basically simulates a CPU capable of the complete fetch-decode-execute cycle given instructions that follow MIPs specifications.
