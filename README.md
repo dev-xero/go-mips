@@ -9,7 +9,7 @@ Basic CPU simulator for the MIPS assembly language. Built for MARS defectors and
 
 -   [Go MIPS](#go-mips)
     -   [Table Of Contents](#table-of-contents)
-    -   [File Structure](#file-structure)
+    -   [Overview](#overview)
     -   [Libraries](#libraries)
     -   [How It Works](#how-it-works)
         -   [How It Works: In a little more depth](#how-it-works-in-a-little-more-depth)
@@ -18,7 +18,7 @@ Basic CPU simulator for the MIPS assembly language. Built for MARS defectors and
         -   [Via the Browser](#via-the-browser)
     -   [MIPS Reference Sheet](#mips-reference-sheet)
 
-## File Structure
+## Overview
 
 ```
 .
@@ -102,6 +102,8 @@ type Instruction struct {
 	Address   uint32
 }
 ```
+
+So each instruction string is parsed and fit into this struct, where the CPU is able to read in order to manipulate and move data around. Bear with me that I'm using the term "CPU" rather loosely here again.
 
 ## Running Locally
 
