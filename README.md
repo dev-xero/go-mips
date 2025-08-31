@@ -1,7 +1,11 @@
-# Table Of Contents
+# Go MIPS
 
--   [Table Of Contents](#table-of-contents)
-    -   [Go MIPS](#go-mips)
+Basic CPU simulator for the MIPS assembly language. Built for MARS defectors and those who prefer a modern user interface.
+
+## Table Of Contents
+
+-   [Go MIPS](#go-mips)
+    -   [Table Of Contents](#table-of-contents)
     -   [File Structure](#file-structure)
     -   [Libraries](#libraries)
     -   [How It Works](#how-it-works)
@@ -9,10 +13,6 @@
         -   [Via the Command Line](#via-the-command-line)
         -   [Via the Browser](#via-the-browser)
     -   [MIPS Reference Sheet](#mips-reference-sheet)
-
-## Go MIPS
-
-Basic CPU simulator for the MIPS assembly language. Built for MARS defectors and those who prefer a modern user interface.
 
 ## File Structure
 
