@@ -43,6 +43,27 @@ The browser, which is more interesting, relies on WebAssembly to get the same fu
 
 ## Running Locally
 
+-   [Via the Command Line](#via-the-command-line)
+-   [Via the Browser](#via-the-browser)
+
+### Via the Command Line
+
+You can compile the source code using the below command:
+
+```sh
+go build -o ./bin/mips-sim ./cmd/main/main.go
+```
+
+Then run the compiled binary using:
+
+```sh
+./bin/mips-sim
+```
+
+Or alternatively use the script provided in `/hack/cli.sh` to run additional formatting before building and executing.
+
+### Via the Browser
+
 ## MIPS Reference Sheet
 
 Full reference [here.](https://uweb.engr.arizona.edu/~ece369/Resources/spim/MIPSReference.pdf)
