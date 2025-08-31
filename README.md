@@ -86,7 +86,7 @@ Or alternatively use the script provided in `/hack/cli.sh` to run additional for
 
 ## MIPS Reference Sheet
 
-Full reference [here.](https://uweb.engr.arizona.edu/~ece369/Resources/spim/MIPSReference.pdf)
+Full reference [here.](./reference/MIPS_Instruction_Set.pdf)
 
 These are the instructions Go MIPS currently interprets and executes.
 
