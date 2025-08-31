@@ -14,7 +14,7 @@ import (
 // HTTP Server for the web editor
 // ===============================================================
 func startServer() {
-	// Starts up a HTTP server to listen for requests to the specified 
+	// Starts up a HTTP server to listen for requests to the specified
 	// port. It also serves static files required by the web editor
 	port := 8080
 	fmt.Printf("Server running at http://localhost:%d\n", port)

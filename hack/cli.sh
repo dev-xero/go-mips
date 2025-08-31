@@ -9,7 +9,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "> Building the project..."
-go build -o ./bin/mips-sim ./cmd/mips/main.go
+go build -o ./bin/mips-sim ./cmd/main/main.go
 
 if [ $? -eq 0 ]; then
     echo -e "> Build successful. Running the simulator...\n"

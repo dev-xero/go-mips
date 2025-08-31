@@ -11,7 +11,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/dev-xero/go-mips/internal/mips"
+	"github.com/dev-xero/go-mips/internal/cpu"
 )
 
 // ===============================================================
