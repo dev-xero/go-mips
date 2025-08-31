@@ -107,6 +107,8 @@ So each instruction string is parsed and fit into this struct, where the CPU is 
 
 ## Running Locally
 
+Needless to say, you need the Go programming language binaries installed on your system, here's one for [Linux :)](https://go.dev/doc/install)
+
 -   [Via the Command Line](#via-the-command-line)
 -   [Via the Browser](#via-the-browser)
 
