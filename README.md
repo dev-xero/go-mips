@@ -1,8 +1,37 @@
-# Go MIPS!
+# Go MIPS
 
-**NOTE: I haven't touched this repository in months, so it's a bit dusty, I'll be refactoring over the coming days and actually provide a useful README.md lol**
+Basic CPU simulator for the MIPS assembly language. Built for MARS defectors and those who prefer a modern user interface.
 
-Go interpreter (and simulator) for the MIPS assembly language. Built for MARS defectors and those who prefer a modern user interface.
+## Table Of Contents
+
+
+## File Structure
+
+```
+.
+├── bin                   # compiled binaries
+├── cmd                   # core go platform modules
+│   ├── main              # cli
+│   ├── server            # server
+│   └── wasm              # web assembly
+├── hack                  # shell scripts
+├── internal              # internal modules
+│   ├── CPU               # simulated cpu
+│   └── validation        # validation
+├── public                # public/web files
+├── reference             # specifications
+└── static                # statically served files
+    ├── css               # stylesheets
+    ├── img               # images
+    ├── js                # javascript
+    └── wasm              # web assembly binaries
+```
+
+## How It Works
+
+
+## Running Locally
+
 
 ## MIPS Reference Sheet
 
