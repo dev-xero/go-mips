@@ -29,11 +29,9 @@ type Simulator struct {
 func (sim *Simulator) ResetState(this js.Value, args []js.Value) interface{} {
 	sim.cpu.Memory = make([]byte, 1024*1024) // 1MB
 	sim.cpu.PC = 0
-
 	for i := range 32 {
 		sim.cpu.Registers[i] = 0
 	}
-
 	return js.ValueOf(true)
 }
 
@@ -194,7 +192,6 @@ func (sim *Simulator) Step(this js.Value, args []js.Value) interface{} {
 	if err != nil {
 		return js.Null()
 	}
-
 	// Parse JSON in Client JS context
 	return js.Global().Get("JSON").Call("parse", string(jsonData))
 }
