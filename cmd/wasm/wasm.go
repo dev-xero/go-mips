@@ -45,15 +45,13 @@ func (sim *Simulator) LoadProgram(this js.Value, args []js.Value) interface{} {
 		return js.ValueOf(false)
 	}
 
-	// We receive "length" instructions from the client
-	// so create a "CPU-native" slice to accommodate them
-	// by CPU-native, I refer to the simulated one
+	// We receive "length" instructions from the client, so create a "CPU-native" slice
+	// to accommodate them. By CPU-native, I refer to the simulated one
 	clientInstructions := args[0]
 	length := clientInstructions.Length()
 	instructions := make([]mips.Instruction, length)
 
-	// In this step, we have to convert the raw mnemonics into
-	// CPU "decoded" formats
+	// In this step, we have to convert the raw mnemonics into CPU "decoded" formats
 	for i := 0; i < length; i++ {
 		line := clientInstructions.Index(i).String()
 		decodedInstruction, err := sim.cpu.Decode(line)
@@ -179,8 +177,7 @@ func (sim *Simulator) Step(this js.Value, args []js.Value) interface{} {
 		return js.ValueOf(false)
 	}
 
-	// Increment program counter
-	// and report CPU state
+	// Increment program counter and report CPU state
 	sim.cpu.PC += 1
 	state := map[string]interface{}{
 		"registers":   sim.RegistersToJsValues(),
@@ -192,6 +189,7 @@ func (sim *Simulator) Step(this js.Value, args []js.Value) interface{} {
 	if err != nil {
 		return js.Null()
 	}
+
 	// Parse JSON in Client JS context
 	return js.Global().Get("JSON").Call("parse", string(jsonData))
 }
