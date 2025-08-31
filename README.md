@@ -1,5 +1,7 @@
 # Go MIPS!
 
+**NOTE: I haven't touched this repository in months, so it's a bit dusty, I'll be refactoring over the coming days and actually provide a useful README.md lol**
+
 Go interpreter (and simulator) for the MIPS assembly language. Built for MARS defectors and those who prefer a modern user interface.
 
 ## MIPS Reference Sheet
