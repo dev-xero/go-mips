@@ -84,6 +84,19 @@ Or alternatively use the script provided in `/hack/cli.sh` to run additional for
 
 ### Via the Browser
 
+Prerequisite: As already mentioned, the browser makes use of compiled web assembly. You can use the `/hack/wasm.sh` script to compile and output the binary under the `/wasm` directory.
+
+I wrote a (very) bare-bones server for the html and static files (css/js/wasm) the editor will use. To spin it up use the following command:
+
+```sh
+go build -o ./bin/server ./cmd/server/server.go
+./bin/server
+```
+
+Or use the script `/hack/server.sh` for additional formatting, compilation and running in one go (pun-intended).
+
+The default port is `8080` accessible via localhost.
+
 ## MIPS Reference Sheet
 
 Full reference [here.](./reference/MIPS_Instruction_Set.pdf)
